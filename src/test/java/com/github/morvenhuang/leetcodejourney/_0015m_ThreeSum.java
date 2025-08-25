@@ -23,7 +23,7 @@ public class _0015m_ThreeSum {
     @Test
     public void testStandardCase() {
         int[] nums = {-1, 0, 1, 2, -1, -4};
-        List<List<Integer>> result = slt2(nums);
+        List<List<Integer>> result = slt3(nums);
         Assertions.assertEquals(2, result.size());
         Assertions.assertTrue(TestHelper.containsList(result, Arrays.asList(-1, -1, 2)));
         Assertions.assertTrue(TestHelper.containsList(result, Arrays.asList(-1, 0, 1)));
@@ -32,7 +32,7 @@ public class _0015m_ThreeSum {
     @Test
     public void testAllZeros() {
         int[] nums = {0, 0, 0, 0};
-        List<List<Integer>> result = slt2(nums);
+        List<List<Integer>> result = slt3(nums);
         Assertions.assertEquals(1, result.size());
         Assertions.assertTrue(TestHelper.containsList(result, Arrays.asList(0, 0, 0)));
     }
@@ -40,14 +40,14 @@ public class _0015m_ThreeSum {
     @Test
     public void testNoSolution() {
         int[] nums = {1, 2, -2, -1};
-        List<List<Integer>> result = slt2(nums);
+        List<List<Integer>> result = slt3(nums);
         Assertions.assertTrue(result.isEmpty());
     }
 
     @Test
     public void testDuplicateTriplets() {
         int[] nums = {-2, 0, 1, 1, 2, 2};
-        List<List<Integer>> result = slt2(nums);
+        List<List<Integer>> result = slt3(nums);
         Assertions.assertEquals(2, result.size());
         Assertions.assertTrue(TestHelper.containsList(result, Arrays.asList(-2, 0, 2)));
         Assertions.assertTrue(TestHelper.containsList(result, Arrays.asList(-2, 1, 1)));
@@ -56,7 +56,7 @@ public class _0015m_ThreeSum {
     /**
      * 最直观的做法是3重循环，不过这种情况时间复杂度太高，O(n^3)，需要考虑优化。
      * 可以从 two sum 中得到启发，如果固定一个值，剩下的就可以套用 two sum 的解法了。
-     *
+     * <p>
      * 其实本题中，真正比较麻烦的是如何避免重复答案。
      * 例如，以下代码就会输出重复答案：
      * [-1, 0, 1], [-1, 2, -1], [0, 1, -1]
@@ -80,7 +80,7 @@ public class _0015m_ThreeSum {
 
     /**
      * 这里的实现基本上在内层循环套用 two-sum 的做法，但对重复数据进行特殊处理
-     * 更好的做法是在内层循环使用双指针从两头相向移动，不过我觉得差别不大。
+     * 更好的做法是在内层循环使用双指针从两头相向移动，不过我觉得差别不大，后面也会有双指针的解法。
      */
     List<List<Integer>> slt2(int[] a) {
         Arrays.sort(a); // 对原数组进行排序，这样对重复数据处理起来会比较简化
@@ -123,6 +123,47 @@ public class _0015m_ThreeSum {
                     if (set.contains(need)) {
                         list.add(Arrays.asList(a[i], a[j], need));
                     }
+                }
+            }
+        }
+        return list;
+    }
+
+    /**
+     * 由于我们对数组进行了排序，一想到"排序"，就应该想到的一个东西："头尾双指针"。这是需要记住的。
+     * 这里也写一个使用头尾双指针的。
+     */
+    List<List<Integer>> slt3(int[] a) {
+        Arrays.sort(a); // 对原数组进行排序，这样对重复数据处理起来会比较简化
+
+        List<List<Integer>> list = new ArrayList<>();
+        for (int i = 0; i <= a.length - 3; i++) {
+            // 如果当前元素，与前一元素相同，则跳过
+            if (i > 0 && a[i] == a[i - 1]) {
+                continue;
+            }
+            int target = -a[i];
+
+            // 双指针
+            int head = i + 1;
+            int tail = a.length - 1;
+            while (head < tail) {
+                if (head > i + 1 && a[head] == a[head - 1]) { // 一些边界还是要注意
+                    head++;
+                    continue;
+                }
+                if (tail < a.length - 1 && a[tail] == a[tail + 1]) {
+                    tail--;
+                    continue;
+                }
+                if (a[head] + a[tail] == target) {
+                    list.add(Arrays.asList(a[i], a[head], a[tail]));
+                    head++;
+                    tail--;
+                } else if (a[head] + a[tail] > target) {
+                    tail--;
+                } else {
+                    head++;
                 }
             }
         }
