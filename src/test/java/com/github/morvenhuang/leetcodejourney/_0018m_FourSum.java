@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
-import static com.github.morvenhuang.leetcodejourney.TestHelper.containsList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -30,9 +29,11 @@ public class _0018m_FourSum {
         int[] a = {1, 0, -1, 0, -2, 2};
         List<List<Integer>> ret = slt2(a, 0);
         assertEquals(3, ret.size());
-        assertTrue(containsList(ret, Arrays.asList(-1, 0, 0, 1)));
-        assertTrue(containsList(ret, Arrays.asList(-2, -1, 1, 2)));
-        assertTrue(containsList(ret, Arrays.asList(-2, 0, 0, 2)));
+        List<List<Integer>> expected = new ArrayList<>();
+        expected.add(Arrays.asList(-1, 0, 0, 1));
+        expected.add(Arrays.asList(-2, -1, 1, 2));
+        expected.add(Arrays.asList(-2, 0, 0, 2));
+        assertTrue(TestHelper.same2DLists(expected, ret, true, true));
     }
 
     @Test
@@ -48,7 +49,9 @@ public class _0018m_FourSum {
         int[] nums = {2, 2, 2, 2, 2, 2, 2, 2};
         List<List<Integer>> ret = slt2(nums, 8);
         assertEquals(1, ret.size());
-        assertTrue(containsList(ret, Arrays.asList(2, 2, 2, 2)));
+        List<List<Integer>> expected = new ArrayList<>();
+        expected.add(Arrays.asList(2, 2, 2, 2));
+        assertTrue(TestHelper.same2DLists(expected, ret, true, true));
     }
 
     @Test
@@ -57,14 +60,17 @@ public class _0018m_FourSum {
 
         List<List<Integer>> ret = slt2(nums, 0);
         assertEquals(8, ret.size());
-        assertTrue(containsList(ret, Arrays.asList(-3, -2, 2, 3)));
-        assertTrue(containsList(ret, Arrays.asList(-3, -1, 1, 3)));
-        assertTrue(containsList(ret, Arrays.asList(-3, 0, 0, 3)));
-        assertTrue(containsList(ret, Arrays.asList(-3, 0, 1, 2)));
-        assertTrue(containsList(ret, Arrays.asList(-2, -1, 0, 3)));
-        assertTrue(containsList(ret, Arrays.asList(-2, -1, 1, 2)));
-        assertTrue(containsList(ret, Arrays.asList(-2, 0, 0, 2)));
-        assertTrue(containsList(ret, Arrays.asList(-1, 0, 0, 1)));
+
+        List<List<Integer>> expected = new ArrayList<>();
+        expected.add(Arrays.asList(-3, -2, 2, 3));
+        expected.add(Arrays.asList(-3, -1, 1, 3));
+        expected.add(Arrays.asList(-3, 0, 0, 3));
+        expected.add(Arrays.asList(-3, 0, 1, 2));
+        expected.add(Arrays.asList(-2, -1, 0, 3));
+        expected.add(Arrays.asList(-2, -1, 1, 2));
+        expected.add(Arrays.asList(-2, 0, 0, 2));
+        expected.add(Arrays.asList(-1, 0, 0, 1));
+        assertTrue(TestHelper.same2DLists(expected, ret, true, true));
     }
 
     //

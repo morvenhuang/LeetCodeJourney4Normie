@@ -20,7 +20,7 @@ public class _0001e_TwoSum {
         int[] nums = {2, 7, 11, 15};
         int target = 9;
         int[] result = slt3(nums, target);
-        Assertions.assertTrue(TestHelper.sameElements(new int[]{0, 1}, result));
+        Assertions.assertTrue(TestHelper.same1DArrays(new int[]{0, 1}, result, true));
     }
 
     @Test
@@ -28,7 +28,7 @@ public class _0001e_TwoSum {
         int[] nums = {-3, 4, 3, 90};
         int target = 0;
         int[] result = slt3(nums, target);
-        Assertions.assertTrue(TestHelper.sameElements(new int[]{0, 2}, result));
+        Assertions.assertTrue(TestHelper.same1DArrays(new int[]{0, 2}, result, true));
     }
 
     @Test
@@ -36,7 +36,7 @@ public class _0001e_TwoSum {
         int[] nums = {3, 3};
         int target = 6;
         int[] result = slt3(nums, target);
-        Assertions.assertTrue(TestHelper.sameElements(new int[]{0, 1}, result));
+        Assertions.assertTrue(TestHelper.same1DArrays(new int[]{0, 1}, result, true));
     }
 
     @Test
@@ -52,7 +52,7 @@ public class _0001e_TwoSum {
         int[] nums = {11, 0, 4, 3, 0};
         int target = 0;
         int[] result = slt3(nums, target);
-        Assertions.assertTrue(TestHelper.sameElements(new int[]{1, 4}, result));
+        Assertions.assertTrue(TestHelper.same1DArrays(new int[]{1, 4}, result, true));
     }
 
     /**

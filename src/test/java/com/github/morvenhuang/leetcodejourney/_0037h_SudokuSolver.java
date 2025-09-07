@@ -45,18 +45,7 @@ public class _0037h_SudokuSolver {
         };
 
         slt3(a);
-        Assertions.assertTrue(check(expected, a));
-    }
-
-    boolean check(int[][] expected, int[][] a) {
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                if (expected[i][j] != a[i][j]) {
-                    return false;
-                }
-            }
-        }
-        return true;
+        Assertions.assertTrue(TestHelper.same2DArrays(expected, a, false, false));
     }
 
     /**

@@ -25,8 +25,11 @@ public class _0015m_ThreeSum {
         int[] nums = {-1, 0, 1, 2, -1, -4};
         List<List<Integer>> result = slt3(nums);
         Assertions.assertEquals(2, result.size());
-        Assertions.assertTrue(TestHelper.containsList(result, Arrays.asList(-1, -1, 2)));
-        Assertions.assertTrue(TestHelper.containsList(result, Arrays.asList(-1, 0, 1)));
+
+        List<List<Integer>> expected = new ArrayList<>();
+        expected.add(Arrays.asList(-1, 0, 1));
+        expected.add(Arrays.asList(-1, -1, 2));
+        Assertions.assertTrue(TestHelper.same2DLists(expected, result, true, true));
     }
 
     @Test
@@ -34,7 +37,10 @@ public class _0015m_ThreeSum {
         int[] nums = {0, 0, 0, 0};
         List<List<Integer>> result = slt3(nums);
         Assertions.assertEquals(1, result.size());
-        Assertions.assertTrue(TestHelper.containsList(result, Arrays.asList(0, 0, 0)));
+
+        List<List<Integer>> expected = new ArrayList<>();
+        expected.add(Arrays.asList(0, 0, 0));
+        Assertions.assertTrue(TestHelper.same2DLists(expected, result, true, true));
     }
 
     @Test
@@ -49,8 +55,11 @@ public class _0015m_ThreeSum {
         int[] nums = {-2, 0, 1, 1, 2, 2};
         List<List<Integer>> result = slt3(nums);
         Assertions.assertEquals(2, result.size());
-        Assertions.assertTrue(TestHelper.containsList(result, Arrays.asList(-2, 0, 2)));
-        Assertions.assertTrue(TestHelper.containsList(result, Arrays.asList(-2, 1, 1)));
+
+        List<List<Integer>> expected = new ArrayList<>();
+        expected.add(Arrays.asList(-2, 0, 2));
+        expected.add(Arrays.asList(-2, 1, 1));
+        Assertions.assertTrue(TestHelper.same2DLists(expected, result, true, true));
     }
 
     /**

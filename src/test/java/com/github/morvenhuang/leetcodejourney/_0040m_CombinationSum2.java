@@ -41,19 +41,26 @@ public class _0040m_CombinationSum2 {
         int[] a = {10, 1, 2, 7, 6, 1, 5};
         List<List<Integer>> r = slt(a, 8);
         Assertions.assertEquals(4, r.size());
-        Assertions.assertTrue(TestHelper.containsList(r, Arrays.asList(1, 7)));
-        Assertions.assertTrue(TestHelper.containsList(r, Arrays.asList(1, 2, 5)));
-        Assertions.assertTrue(TestHelper.containsList(r, Arrays.asList(2, 6)));
-        Assertions.assertTrue(TestHelper.containsList(r, Arrays.asList(1, 1, 6)));
+
+        List<List<Integer>> expected = new ArrayList<>();
+        expected.add(Arrays.asList(1, 7));
+        expected.add(Arrays.asList(1, 2, 5));
+        expected.add(Arrays.asList(2, 6));
+        expected.add(Arrays.asList(1, 1, 6));
+
+        Assertions.assertTrue(TestHelper.same2DLists(expected, r, true, true));
     }
 
     @Test
     public void test02() {
-        int[] a = {2,5,2,1,2};
+        int[] a = {2, 5, 2, 1, 2};
         List<List<Integer>> r = slt(a, 5);
         Assertions.assertEquals(2, r.size());
-        Assertions.assertTrue(TestHelper.containsList(r, Arrays.asList(1, 2, 2)));
-        Assertions.assertTrue(TestHelper.containsList(r, Arrays.asList(5)));
+
+        List<List<Integer>> expected = new ArrayList<>();
+        expected.add(Arrays.asList(1, 2, 2));
+        expected.add(Arrays.asList(5));
+        Assertions.assertTrue(TestHelper.same2DLists(expected, r, true, true));
     }
 
     List<List<Integer>> slt(int[] a, int target) {
