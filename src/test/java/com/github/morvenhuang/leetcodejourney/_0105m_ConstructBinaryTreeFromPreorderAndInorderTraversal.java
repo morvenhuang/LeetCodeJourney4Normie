@@ -72,7 +72,7 @@ public class _0105m_ConstructBinaryTreeFromPreorderAndInorderTraversal {
     public void test01() {
         int[] preorder = {3, 9, 20, 15, 7};
         int[] inorder = {9, 3, 15, 20, 7};
-        TreeNode treeNode = slt(preorder, inorder);
+        TreeNode treeNode = slt2(preorder, inorder);
         TreeNode expected = new TreeNode();
         expected.val = 3;
         expected.left = new TreeNode();
@@ -107,11 +107,10 @@ public class _0105m_ConstructBinaryTreeFromPreorderAndInorderTraversal {
     }
 
     /**
-     *
      * @param preorder
-     * @param i 当前要处理的树，其在前序数组中的起始位置（含）
-     * @param j 当前要处理的树，其在前序数组中的结束位置（含）
-     * @param map 使用中序数组构建的 HashMap，便于查找
+     * @param i        当前要处理的树，其在前序数组中的起始位置（含）
+     * @param j        当前要处理的树，其在前序数组中的结束位置（含）
+     * @param map      使用中序数组构建的 HashMap，便于查找
      * @param treeNode 二叉树节点
      */
     void process(int[] preorder, int i, int j, Map<Integer, Integer> map, TreeNode treeNode) {
@@ -131,6 +130,58 @@ public class _0105m_ConstructBinaryTreeFromPreorderAndInorderTraversal {
         process(preorder, i + 1, posRoot, map, treeNode.left); // left
         treeNode.right = new TreeNode();
         process(preorder, posRoot + 1, j, map, treeNode.right); // right
+    }
+
+    TreeNode slt2(int[] preorder, int[] inorder) {
+        int size = preorder.length;
+
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < size; i++) {
+            map.put(inorder[i], i);
+        }
+
+        TreeNode treeNode = new TreeNode();
+        process2(0, inorder.length - 1, preorder, 0, preorder.length - 1, map, treeNode);
+        return treeNode;
+    }
+
+    /**
+     * @param preorder
+     * @param iPreorder 当前要处理的树，其在前序数组中的起始位置（含）
+     * @param jPreorder 当前要处理的树，其在前序数组中的结束位置（含）
+     * @param map       使用中序数组构建的 HashMap，便于查找
+     * @param treeNode  二叉树节点
+     */
+    /**
+     * @param iInorder  当前要处理的树，其在中序数组中的起始位置（含）
+     * @param jInorder  当前要处理的树，其在中序数组中的结束位置（含）
+     * @param preorder
+     * @param iPreorder 当前要处理的树，其在前序数组中的起始位置（含）
+     * @param jPreorder 当前要处理的树，其在前序数组中的结束位置（含）
+     * @param map       使用中序数组构建的 HashMap，便于查找
+     * @param treeNode  二叉树节点
+     */
+    void process2(int iInorder, int jInorder, int[] preorder, int iPreorder, int jPreorder, Map<Integer, Integer> map, TreeNode treeNode) {
+        if (iPreorder == jPreorder) {
+            treeNode.val = preorder[iPreorder];
+            return;
+        }
+        // 前序数组中的头一个元素，肯定就是当前这棵树的根。它后面跟着左子树、右子树，但这两棵子树的大小还不确定，需要依赖中序数组。
+        int root = preorder[iPreorder];
+        // 通过根节点在中序数组中的位置（在中序数组中，根节点的左侧就是左子树，右侧就是右子树），可以确定左右子树的大小。
+        int rootIndexInorder = map.get(root);
+        int lSize = rootIndexInorder - iInorder;
+        int rSize = jInorder - rootIndexInorder;
+        treeNode.val = root;
+        if (lSize > 0) {
+            treeNode.left = new TreeNode();
+            // 左子树在前序数组中的起始、结束位置（即第二、三参数），结合具体例子比较好想
+            process2(iInorder, rootIndexInorder - 1, preorder, iPreorder + 1, iPreorder + lSize, map, treeNode.left); // left
+        }
+        if (rSize > 0) {
+            treeNode.right = new TreeNode();
+            process2(rootIndexInorder + 1, jInorder, preorder, jPreorder - rSize + 1, jPreorder, map, treeNode.right); // right
+        }
     }
 
 }
