@@ -1,5 +1,7 @@
 package com.github.morvenhuang.leetcodejourney;
 
+import com.github.morvenhuang.leetcodejourney.Utils.TreeNode;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -171,4 +173,24 @@ public class TestHelper {
         return true;
     }
 
+    public static boolean sameBinaryTrees(TreeNode a, TreeNode b) {
+        if (a == null && b == null) {
+            return true;
+        }
+        if (a == null || b == null) {
+            return false;
+        }
+        if (a.val != b.val) {
+            return false;
+        }
+        boolean l = sameBinaryTrees(a.left, b.left);
+        if (!l) {
+            return false;
+        }
+        boolean r = sameBinaryTrees(a.right, b.right);
+        if (!r) {
+            return false;
+        }
+        return true;
+    }
 }

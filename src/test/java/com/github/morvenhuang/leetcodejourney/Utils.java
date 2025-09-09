@@ -7,4 +7,10 @@ public class Utils {
         a[i] = a[j];
         a[j] = temp;
     }
+
+    static class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+    }
 }
