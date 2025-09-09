@@ -54,8 +54,7 @@ public class _0106m_ConstructBinaryTreeFromInorderAndPostorderTraversal {
         return treeNode;
     }
 
-    // 比 0105 的 slt 复杂一点，需要传入中序数组对应的边界。而在 0105 中，前序的"根+左"，与中序的"左+根"，看成一个整体的话，索引是同步的。
-    // 而 0105 的 slt2 则与这里的处理思路完全一直。
+    // 与 0105 的 slt2 处理思路完全一致。
     void process(int iInorder, int jInorder, int[] postorder, int iPostorder, int jPostorder,
                  Map<Integer, Integer> map, TreeNode treeNode) {
         if (iPostorder == jPostorder) {

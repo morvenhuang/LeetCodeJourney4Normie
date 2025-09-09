@@ -86,50 +86,32 @@ public class _0105m_ConstructBinaryTreeFromPreorderAndInorderTraversal {
         Assertions.assertTrue(TestHelper.sameBinaryTrees(expected, treeNode));
     }
 
-    /**
-     * * preorder(根 -> 左 -> 右) = [3,9,20,15,7]
-     * * inorder(左 -> 根 -> 右) = [9,3,15,20,7]
-     * <p>
-     * 从前序遍历中，拿第一个元素（3），它就是 root。对应的在中序遍历中找到 3 所在的位置，那么就可以确定左子树和右子树的大小，
-     * 再对左、右子树进行递归处理。
-     */
-    TreeNode slt(int[] preorder, int[] inorder) {
-        int size = preorder.length;
+    @Test
+    public void test02() {
+        // 前序遍历[1, 2, 4, 5, 3]，中序遍历[4, 2, 5, 1, 3]
+        int[] preorder = {1, 2, 4, 5, 3};
+        int[] inorder = {4, 2, 5, 1, 3};
 
-        Map<Integer, Integer> map = new HashMap<>();
-        for (int i = 0; i < size; i++) {
-            map.put(inorder[i], i);
-        }
+        // 正确的二叉树结构应该是：
+        //     1
+        //    / \
+        //   2   3
+        //  / \
+        // 4   5
 
-        TreeNode treeNode = new TreeNode();
-        process(preorder, 0, preorder.length - 1, map, treeNode);
-        return treeNode;
-    }
+        TreeNode treeNode = slt2(preorder, inorder);
+        TreeNode expected = new TreeNode();
+        expected.val = 1;
+        expected.left = new TreeNode();
+        expected.left.val = 2;
+        expected.left.left = new TreeNode();
+        expected.left.left.val = 4;
+        expected.left.right= new TreeNode();
+        expected.left.right.val = 5;
+        expected.right = new TreeNode();
+        expected.right.val =3;
 
-    /**
-     * @param preorder
-     * @param i        当前要处理的树，其在前序数组中的起始位置（含）
-     * @param j        当前要处理的树，其在前序数组中的结束位置（含）
-     * @param map      使用中序数组构建的 HashMap，便于查找
-     * @param treeNode 二叉树节点
-     */
-    void process(int[] preorder, int i, int j, Map<Integer, Integer> map, TreeNode treeNode) {
-        if (i > j) {
-            return;
-        } else if (i == j) {
-            treeNode.val = preorder[i];
-            return;
-        }
-        // 前序数组中的头一个元素，肯定就是当前这棵树的根。它后面跟着左子树、右子树，但这两棵子树的大小还不确定，需要依赖中序数组。
-        int root = preorder[i];
-        // 通过根节点在中序数组中的位置（在中序数组中，根节点的左侧就是左子树，右侧就是右子树），可以确定左右子树的大小。
-        int posRoot = map.get(root);
-        treeNode.val = root;
-        treeNode.left = new TreeNode();
-        // 左子树在前序数组中的起始、结束位置（即第二、三参数），结合具体例子比较好想
-        process(preorder, i + 1, posRoot, map, treeNode.left); // left
-        treeNode.right = new TreeNode();
-        process(preorder, posRoot + 1, j, map, treeNode.right); // right
+        Assertions.assertTrue(TestHelper.sameBinaryTrees(expected,treeNode));
     }
 
     TreeNode slt2(int[] preorder, int[] inorder) {
@@ -145,13 +127,6 @@ public class _0105m_ConstructBinaryTreeFromPreorderAndInorderTraversal {
         return treeNode;
     }
 
-    /**
-     * @param preorder
-     * @param iPreorder 当前要处理的树，其在前序数组中的起始位置（含）
-     * @param jPreorder 当前要处理的树，其在前序数组中的结束位置（含）
-     * @param map       使用中序数组构建的 HashMap，便于查找
-     * @param treeNode  二叉树节点
-     */
     /**
      * @param iInorder  当前要处理的树，其在中序数组中的起始位置（含）
      * @param jInorder  当前要处理的树，其在中序数组中的结束位置（含）
@@ -170,6 +145,7 @@ public class _0105m_ConstructBinaryTreeFromPreorderAndInorderTraversal {
         int root = preorder[iPreorder];
         // 通过根节点在中序数组中的位置（在中序数组中，根节点的左侧就是左子树，右侧就是右子树），可以确定左右子树的大小。
         int rootIndexInorder = map.get(root);
+        // 利用中序数组来确定左、右子树的大小
         int lSize = rootIndexInorder - iInorder;
         int rSize = jInorder - rootIndexInorder;
         treeNode.val = root;
