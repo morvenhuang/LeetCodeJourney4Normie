@@ -7,32 +7,58 @@ import org.junit.jupiter.api.Test;
  * Suppose an array sorted in ascending order is rotated at some pivot unknown to you beforehand.
  * (i.e., [0,1,2,4,5,6,7] might become [4,5,6,7,0,1,2]).
  * Find the minimum element.
- * You may assume no duplicate exists in the array.
+ * The array may contain duplicates.
  * <p>
  * Example 1:
- * Input: [3,4,5,1,2]
+ * Input: [1,3,5]
  * Output: 1
  * <p>
  * Example 2:
- * Input: [4,5,6,7,0,1,2]
+ * Input: [2,2,2,0,1]
  * Output: 0
+ * <p>
+ * Note:
+ * This is a follow up problem to  Find Minimum in Rotated Sorted Array.
+ * Would allow duplicates affect the run-time complexity? How and why?
  */
-public class _0153m_FindMinimumInRotatedSortedArray {
+public class _0154h_FindMinimumInRotatedSortedArrayII {
 
     @Test
     void test01() {
-        int[] a = {3, 4, 5, 1, 2};
-        int r = slt(a);
-        Assertions.assertEquals(1, r);
-    }
-
-    @Test
-    void test02() {
-        int[] a = {4, 5, 6, 7, 0, 1, 2};
+        int[] a = {2, 2, 2, 0, 1};
         int r = slt(a);
         Assertions.assertEquals(0, r);
     }
 
+    @Test
+    void test02() {
+        int[] a = {2, 2, 2, 2, 2};
+        int r = slt(a);
+        Assertions.assertEquals(2, r);
+    }
+
+    @Test
+    void test03() {
+        int[] a = {2, 2, 2, 2, 2, 0, 1};
+        int r = slt(a);
+        Assertions.assertEquals(0, r);
+    }
+
+    @Test
+    void test04() {
+        int[] a = {2, 2, 2, 0, 1, 1, 1, 1, 1, 1};
+        int r = slt(a);
+        Assertions.assertEquals(0, r);
+    }
+
+    @Test
+    void test05() {
+        int[] a = {2, 2, 2, 0};
+        int r = slt(a);
+        Assertions.assertEquals(0, r);
+    }
+
+    // 参见 0153，没什么难度
     int slt(int[] a) {
         int head = 0;
         int tail = a.length - 1;
